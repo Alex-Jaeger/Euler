@@ -3,7 +3,6 @@ import math
 
 result = 0
 
-# Successor Formula
 i = 0
 j = 1
 
