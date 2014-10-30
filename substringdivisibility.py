@@ -7,7 +7,3 @@ def isPandigital(num_str):
         if str(i) not in num_str:
             return 0
     return 1
-
-
-
-for i
