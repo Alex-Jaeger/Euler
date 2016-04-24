@@ -8,4 +8,5 @@ result = 1
 
 for i in range(7):
     result *= int(num_str[10 ** i])
+    
 print result
