@@ -32,9 +32,7 @@ for i in range(1000000, 1, -1):
     if(termCount >= longest_seq):
         longest_seq = termCount
         longest_num = i
-
-    print(i)
-
+        
     termCount = 1
 
 print(longest_num)
