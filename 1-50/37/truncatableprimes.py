@@ -1,4 +1,18 @@
 
+def gen_primes():
+    D = {}
+    q = 2
+
+    while True:
+        if q not in D:
+            yield q
+            D[q * q] = [q]
+        else:
+            for p in D[q]:
+                D.setdefault(p + q, []).append(p)
+            del D[q]
+
+        q += 1
 
 def isPrime(n):
     if n <= 3:
@@ -16,60 +30,45 @@ def trunc_left(n):
 
 def trunc_right(n):
     str_n = str(n)
-    return int(str_n[::-1])
+    return int(str_n[:-1])
 
-print trunc_right(155)
-print isPrime(13)
+truncatable_primes = []
 
-n = 7
+prime_gen = gen_primes()
+while (len(truncatable_primes) < 11):
+    prime = int(next(prime_gen))
 
-num = 0
-num_sum = 0
+    if prime <= 7:
+        continue
 
-while(num < 11):
+    is_truncatable_prime_l = False
+    trunc_prime = prime
 
-    l_r = 0
-    l_r_n = n
-
-    r_l = 0
-    r_l_n = n
-
-    while len(str(l_r_n)) > 1:
-        if(isPrime(l_r_n)):
-            l_r_n = trunc_left(l_r_n)
+    while True:
+        trunc_prime = trunc_left(trunc_prime)
+        if (isPrime(trunc_prime)):
+            is_truncatable_prime_l = True
+            if (trunc_prime < 10):
+                break
         else:
+            is_truncatable_prime_l = False
             break
 
-        if(isPrime(l_r_n)):
-            l_r_n = trunc_right(l_r_n)
+    is_truncatable_prime_r = False
+    trunc_prime = prime
+
+    while True:
+        trunc_prime = trunc_right(trunc_prime)
+
+        if (isPrime(trunc_prime)):
+            is_truncatable_prime_r = True
+            if (trunc_prime < 10):
+                break
         else:
+            is_truncatable_prime_r = False
             break
 
-    if(len(str(l_r_n)) > 1):
-        l_r = 0
-    else:
-        l_r = 1
+    if is_truncatable_prime_l == True and is_truncatable_prime_r == True:
+        truncatable_primes.extend([prime])
 
-    while len(str(r_l_n)) > 1:
-        if(isPrime(r_l_n)):
-            r_l_n = trunc_left(r_l_n)
-        else:
-            break
-
-        if(isPrime(l_r_n)):
-            r_l_n = trunc_right(r_l_n)
-        else:
-            break
-
-    if(len(str(r_l_n)) > 1):
-        r_l = 0
-    else:
-        r_l = 1
-
-    if(r_l == 1 & l_r == 1):
-        num += 1
-        num_sum += n
-
-    n += 1
-
-print num_sum
+print sum(truncatable_primes)
