@@ -1,30 +1,32 @@
+import math
 
-def getTriangleNumber(n):
-    triNumber = 0
+def triangleNumber():
+    n = 0
 
-    for i in range(n, 0, -1):
-        triNumber += i
+    while True:
+        n += 1
+        triNumber = 0
 
-    return triNumber
+        for i in range(1, n+1):
+            triNumber += i
+
+        yield triNumber
 
 def getNumDivisor(n):
     numDivisors = 0
 
-    for i in range(n, 0, -1):
+    for i in range(int(math.sqrt(n)), 0, -1):
         if(n % i == 0):
             numDivisors += 1
 
-    return numDivisors
+    return numDivisors * 2
 
-divisorCount = 0
+tri_generator = triangleNumber()
 triNumber = 0
-i = 1
+divisorCount = 0
 
 while(divisorCount <= 500):
-    triNumber = getTriangleNumber(i)
+    triNumber = next(tri_generator)
     divisorCount = getNumDivisor(triNumber)
-    i += 1
-
-    print divisorCount
 
 print triNumber
