@@ -1,0 +1,6 @@
+
+#include "${EULER_PROBLEM_NUMBER}/problem_${EULER_PROBLEM_NUMBER}.hpp"
+
+int main () {
+    euler::problem_${EULER_PROBLEM_NUMBER}::solver();
+}
